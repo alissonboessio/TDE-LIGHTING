@@ -1661,7 +1661,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<cmath>
 
-1763597010 source:d:\prog\comp-grafica\glfw_tie_fighter\main.cpp
+1763647678 source:d:\prog\comp-grafica\glfw_tie_fighter\main.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -1680,6 +1680,7 @@
 	<Texture.h>
 	<Skybox.h>
 	<Plate.h>
+	<LightSphere.h>
 	<iostream>
 	<vector>
 	<ctime>
@@ -1742,7 +1743,7 @@
 	<vector>
 	<memory>
 
-1763592343 d:\prog\comp-grafica\glfw_tie_fighter\include\sphere.h
+1763644419 d:\prog\comp-grafica\glfw_tie_fighter\include\sphere.h
 	<glm/glm.hpp>
 	"Shader.h"
 	"Object.h"
@@ -1902,6 +1903,249 @@
 	"Plate.h"
 
 1763592343 source:d:\prog\comp-grafica\glfw_tie_fighter\src\xwingclosed.cpp
+	"XWingClosed.h"
+	"XWing.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"TieWing.h"
+	"Object.h"
+	"Hexagon.h"
+	"HexagonalPrism.h"
+	"Texture.h"
+	"Plate.h"
+
+1763644206 d:\prog\comp-grafica\glfw_tie_fighter\include\lightsphere.h
+	"Sphere.h"
+
+1763644216 source:d:\prog\comp-grafica\glfw_tie_fighter\src\lightsphere.cpp
+	"LightSphere.h"
+	<glm/gtc/matrix_transform.hpp>
+
+1763648655 source:d:\prog\comp-grafica\tde-lighting\main.cpp
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<Shader.h>
+	<Application.h>
+	<Cube.h>
+	<TieFighter.h>
+	<Cylinder.h>
+	<TieWing.h>
+	<XWing.h>
+	<XWingClosed.h>
+	<Hexagon.h>
+	<Sphere.h>
+	<Texture.h>
+	<Skybox.h>
+	<Plate.h>
+	<LightSphere.h>
+	<iostream>
+	<vector>
+	<ctime>
+	<string>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\shader.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\application.h
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<string>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\cube.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\object.h
+	<glm/glm.hpp>
+	"Shader.h"
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\tiefighter.h
+	"Cube.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"Object.h"
+	"TieWing.h"
+	"Texture.h"
+	<vector>
+	<memory>
+
+1763644419 d:\prog\comp-grafica\tde-lighting\include\sphere.h
+	<glm/glm.hpp>
+	"Shader.h"
+	"Object.h"
+	<vector>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\cylinder.h
+	<glm/glm.hpp>
+	"Shader.h"
+	"Object.h"
+	<vector>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\tiewing.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\texture.h
+	<GL/glew.h>
+	<string>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\xwing.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+	"Cube.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"Object.h"
+	"TieWing.h"
+	"Texture.h"
+	<vector>
+	<memory>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\xwingclosed.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+	"Cube.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"Object.h"
+	"TieWing.h"
+	"Texture.h"
+	<vector>
+	<memory>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\hexagon.h
+	<glm/glm.hpp>
+	<vector>
+	"Shader.h"
+	"Object.h"
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\skybox.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Shader.h>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\plate.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+
+1763644206 d:\prog\comp-grafica\tde-lighting\include\lightsphere.h
+	"Sphere.h"
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\application.cpp
+	"Application.h"
+	<iostream>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\cube.cpp
+	"Cube.h"
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\cylinder.cpp
+	"Cylinder.h"
+	<glm/gtc/matrix_transform.hpp>
+	<cmath>
+	<glm/gtc/constants.hpp>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\hexagon.cpp
+	"Hexagon.h"
+	<glm/gtc/matrix_transform.hpp>
+	<cmath>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\hexagonalprism.cpp
+	"HexagonalPrism.h"
+	<glm/gtc/matrix_transform.hpp>
+	<cmath>
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\hexagonalprism.h
+	"Hexagon.h"
+
+1763644216 source:d:\prog\comp-grafica\tde-lighting\src\lightsphere.cpp
+	"LightSphere.h"
+	<glm/gtc/matrix_transform.hpp>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\mesh.cpp
+	"Mesh.h"
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\mesh.h
+	<GL/glew.h>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\plate.cpp
+	"Plate.h"
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\skybox.cpp
+	"Skybox.h"
+	<iostream>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\sphere.cpp
+	"Sphere.h"
+	<glm/gtc/matrix_transform.hpp>
+	<cmath>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\stb_image.cpp
+	"stb_image.h"
+
+1763592343 d:\prog\comp-grafica\tde-lighting\include\stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\texture.cpp
+	"Texture.h"
+	<stb_image.h>
+	<iostream>
+
+1763596129 source:d:\prog\comp-grafica\tde-lighting\src\tiefighter.cpp
+	"TieFighter.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"TieWing.h"
+	"Object.h"
+	"Texture.h"
+
+1763597204 source:d:\prog\comp-grafica\tde-lighting\src\tiewing.cpp
+	"TieWing.h"
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\xwing.cpp
+	"XWing.h"
+	"Sphere.h"
+	"Cylinder.h"
+	"TieWing.h"
+	"Object.h"
+	"Hexagon.h"
+	"HexagonalPrism.h"
+	"Texture.h"
+	"Plate.h"
+
+1763592343 source:d:\prog\comp-grafica\tde-lighting\src\xwingclosed.cpp
 	"XWingClosed.h"
 	"XWing.h"
 	"Sphere.h"

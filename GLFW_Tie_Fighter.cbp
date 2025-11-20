@@ -51,6 +51,7 @@
 		<Unit filename="include/Cylinder.h" />
 		<Unit filename="include/Hexagon.h" />
 		<Unit filename="include/HexagonalPrism.h" />
+		<Unit filename="include/LightSphere.h" />
 		<Unit filename="include/Mesh.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/Plate.h" />
@@ -70,6 +71,7 @@
 		<Unit filename="src/Cylinder.cpp" />
 		<Unit filename="src/Hexagon.cpp" />
 		<Unit filename="src/HexagonalPrism.cpp" />
+		<Unit filename="src/LightSphere.cpp" />
 		<Unit filename="src/Mesh.cpp" />
 		<Unit filename="src/Plate.cpp" />
 		<Unit filename="src/Skybox.cpp" />

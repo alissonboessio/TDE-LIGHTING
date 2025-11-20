@@ -17,16 +17,12 @@
 #include <Texture.h>
 #include <Skybox.h>
 #include <Plate.h>
+#include <LightSphere.h>
 
 #include <iostream>
 #include <vector>
 #include <ctime>
 #include <string>
-
-// todo glaze
-// mudar para bola de luz
-
-
 
 int WIDTH = 1400;
 int HEIGHT = 700;
@@ -35,6 +31,8 @@ int HEIGHT = 700;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+float cameraSpeed = 0.01f;
+
 
 float yaw   = -90.0f; //olhando para -Z
 float pitch =  0.0f;
@@ -46,8 +44,9 @@ bool firstMouse = true;
 bool showXWing = false;
 
 //Luz (posição inicial e cor)
-glm::vec3 lightPos   = glm::vec3(3.0f, 5.0f, 5.0f);
+glm::vec3 lightPos   = glm::vec3(3.0f, 0.0f, 5.0f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+float lightMoveSpeed = 0.01f; //velocidade de movimento da luz
 
 void resetCam() {
     cameraPos   = glm::vec3(0.0f, 0.0f,  10.0f);
@@ -86,6 +85,53 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     cameraFront = glm::normalize(front);
 }
 
+void processInput(GLFWwindow* window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
+
+    //Movimento da câmera
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            cameraPos += cameraSpeed * cameraFront;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            cameraPos -= cameraSpeed * cameraFront;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) //sobe
+            cameraPos += cameraSpeed * cameraUp;
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) //desce
+            cameraPos -= cameraSpeed * cameraUp;
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+            resetCam();
+
+        //Mostrar/remover XWing do piloto
+        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+            showXWing = true;
+        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+            showXWing = false;
+
+        //Movimento da luz
+        //E/P -> eixo X
+        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+            lightPos.x += lightMoveSpeed;    //aumenta X
+        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+            lightPos.x -= lightMoveSpeed;    //diminui X
+
+        //K/L -> eixo Y
+        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+            lightPos.y += lightMoveSpeed;    //aumenta Y (sobe)
+        if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+            lightPos.y -= lightMoveSpeed;    //diminui Y (desce)
+
+        //N/M -> eixo Z
+        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+            lightPos.z += lightMoveSpeed;    //aumenta Z
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+            lightPos.z -= lightMoveSpeed;    //diminui Z
+
+}
+
 int main() {
     //Cria janela e inicializa OpenGL
     Application app(WIDTH, HEIGHT, "GLFW Star Wars Tie Fighter");
@@ -97,6 +143,10 @@ int main() {
     //Carrega shader principal (vertex/fragment com iluminação)
     Shader shader("vertex.glsl", "fragment.glsl");
     shader.use();
+
+    shader.setFloat("ambientStrength", 0.15f);
+    shader.setFloat("diffuseStrength", 1.0f);
+    shader.setFloat("specularStrength", 0.4f);
 
 
     //Shader do cubo da luz (apenas posição, sem iluminação)
@@ -184,67 +234,10 @@ int main() {
     //Inicializa espaço sideral (skybox)
     Skybox skybox;
 
-
-    float lightVertices[] = {
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f
-    };
-
-    unsigned int lightVAO, lightVBO;
-    glGenVertexArrays(1, &lightVAO);
-    glGenBuffers(1, &lightVBO);
-
-    glBindVertexArray(lightVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, lightVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(lightVertices), lightVertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glBindVertexArray(0);
+    LightSphere lightSphere(lightPos, 0.1f);
 
     //Ativa depth test
     glEnable(GL_DEPTH_TEST);
-
-    float cameraSpeed = 0.01f;
-    float lightMoveSpeed = 0.01f; //velocidade de movimento da luz
 
     //Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
@@ -252,49 +245,7 @@ int main() {
         //Processa input da janela
         GLFWwindow* window = app.getWindow();
 
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
-
-        //Movimento da câmera
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            cameraPos += cameraSpeed * cameraFront;
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            cameraPos -= cameraSpeed * cameraFront;
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) //sobe
-            cameraPos += cameraSpeed * cameraUp;
-        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) //desce
-            cameraPos -= cameraSpeed * cameraUp;
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-            resetCam();
-
-        //Mostrar/remover XWing do piloto
-        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-            showXWing = true;
-        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
-            showXWing = false;
-
-        //Movimento da luz
-        //E/P -> eixo X
-        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-            lightPos.x += lightMoveSpeed;    //aumenta X
-        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-            lightPos.x -= lightMoveSpeed;    //diminui X
-
-        //K/L -> eixo Y
-        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-            lightPos.y += lightMoveSpeed;    //aumenta Y (sobe)
-        if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-            lightPos.y -= lightMoveSpeed;    //diminui Y (desce)
-
-        //N/M -> eixo Z
-        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-            lightPos.z += lightMoveSpeed;    //aumenta Z
-        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-            lightPos.z -= lightMoveSpeed;    //diminui Z
+        processInput(window);
 
         //Limpa tela e depth buffer
         glClearColor(0.02f, 0.02f, 0.05f, 1.0f); //fundo mais escuro
@@ -397,19 +348,13 @@ int main() {
         tex9.bind(0);
         hexagon.draw(shader, model);
 
-        //Cubo de luz
+        //Luz
         lightCubeShader.use();
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
 
-        glm::mat4 lightModel = glm::mat4(1.0f);
-        lightModel = glm::translate(lightModel, lightPos); //posição atual da luz
-        lightModel = glm::scale(lightModel, glm::vec3(0.2f)); //cubo pequeno
-        lightCubeShader.setMat4("model", lightModel);
-
-        glBindVertexArray(lightVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+        lightSphere.position = lightPos;
+        lightSphere.draw(lightCubeShader);
 
         //desenha a skybox
         skybox.draw(skyboxView, projection);
@@ -418,10 +363,6 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    //limpeza do VAO/VBO da luz
-    glDeleteVertexArrays(1, &lightVAO);
-    glDeleteBuffers(1, &lightVBO);
 
     return 0;
 }
