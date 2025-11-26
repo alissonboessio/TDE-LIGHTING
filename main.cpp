@@ -48,12 +48,14 @@ glm::vec3 lightPos   = glm::vec3(3.0f, 0.0f, 5.0f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 float lightMoveSpeed = 0.01f; //velocidade de movimento da luz
 
-void resetCam() {
+void resetPosic() {
     cameraPos   = glm::vec3(0.0f, 0.0f,  10.0f);
     cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
     yaw   = -90.0f;
     pitch =  0.0f;
+    lightPos   = glm::vec3(3.0f, 0.0f, 5.0f);
+    lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
@@ -103,7 +105,7 @@ void processInput(GLFWwindow* window) {
         if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) //desce
             cameraPos -= cameraSpeed * cameraUp;
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-            resetCam();
+            resetPosic();
 
         //Mostrar/remover XWing do piloto
         if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
@@ -213,11 +215,9 @@ int main() {
     hexagon.rotation = glm::vec3(0.0f, 0.0f, 1.0f);
     hexagon.scale = scale;
 
-    ob2.scale = scale;
     ob3.scale = scale;
     ob4.scale = scale;
     ob5.scale = scale;
-    ob6.scale = scale;
     ob7.scale = scale;
 
     XWing ob9 = XWing(glm::vec3(-2.0f, 1.0f, -4.0f),
@@ -317,7 +317,7 @@ int main() {
                             glm::vec3(-1.0f, 0.0f, -0.1f));
         ob8.draw(shader, model);
 
-        model = glm::mat4(1.0f) * 30.0f;
+        model = glm::mat4(1.0f);
         model = glm::rotate(model,
                             (angle * (float) glfwGetTime()) / 15.0f,
                             glm::vec3(-1.0f, 1.0f, -0.1f));

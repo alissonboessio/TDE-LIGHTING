@@ -1921,7 +1921,7 @@
 	"LightSphere.h"
 	<glm/gtc/matrix_transform.hpp>
 
-1763648655 source:d:\prog\comp-grafica\tde-lighting\main.cpp
+1764196581 source:d:\prog\comp-grafica\tde-lighting\main.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
